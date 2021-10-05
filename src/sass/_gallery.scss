@@ -1,0 +1,59 @@
+:root {
+  --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-duration: 250ms;
+}
+
+.search-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  // height: 50px;
+  background-color: rgb(56, 11, 204);
+  text-align: center;
+
+  &__input {
+    width: 350px;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid rgba(56, 11, 204, 0.9);
+    border-radius: 3px;
+    cursor: pointer;
+
+    &:hover,
+    &:active {
+      border: 2px solid rgba(94, 48, 245, 0.9);
+    }
+  }
+}
+
+.gallery {
+  // display: grid;
+  // grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  // grid-auto-rows: 240px;
+  // grid-gap: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  // max-width: 1140px;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.photo-card {
+  width: 250px;
+  height: auto;
+  margin: 5px;
+  border: 1px solid #ccc;
+}
+
+.img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  transition: transform var(--animation-duration) var(--timing-function);
+
+  &:hover {
+    transform: scale(1.03);
+  }
+}
