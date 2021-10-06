@@ -7,20 +7,28 @@ const qs = selector => document.querySelector(selector);
 const input = qs('.search-form__input');
 const btnSearch = qs('button');
 const gallery = qs('.gallery');
+const btnLoadMore = qs('.load-more');
+
+let pageNumber = 1;
 
 const searchImagesValue = e => {
   e.preventDefault();
-  fetchImages(input.value)
+  fetchImages(input.value, pageNumber)
     .then(photos => {
-      console.log(photos);
+      if (pageNumber < 1) {
+        gallery.innerHTML = '';
+      }
+      if (pageNumber >= 1) {
+        btnLoadMore.style.display = 'block';
+      }
       renderImages(photos);
+      pageNumber += 1;
     })
     .catch(err => console.log(err));
 };
 
 function renderImages(photos) {
-  gallery.innerHTML = '';
-  const markup = photos.hits.forEach(
+  photos.hits.forEach(
     ({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
       gallery.innerHTML += `<div class="photo-card">
         <img class="photo-card__img" src="${webformatURL}" alt="${tags}" loading="lazy" />
@@ -51,8 +59,10 @@ function renderImages(photos) {
   );
 }
 
-const resetGallery = () => {
-  gallery.innerHTML = '';
-};
+function newSearch() {
+  // gallery.innerHTML = '';
+  searchImagesValue();
+}
 
 btnSearch.addEventListener('click', searchImagesValue);
+btnLoadMore.addEventListener('click', searchImagesValue);
