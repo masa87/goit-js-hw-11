@@ -18,7 +18,7 @@ let leftHits;
 const searchImagesValue = () => {
   fetchImages(input.value, pageNumber)
     .then(photos => {
-      // console.log(`tyle zostało ${leftHits}`);
+      console.log(`tyle zostało ${leftHits}`);
 
       if (pageNumber < 1) {
         gallery.innerHTML = '';
