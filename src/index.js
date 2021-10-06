@@ -1,4 +1,6 @@
 import './sass/main.scss';
+import Notiflix from 'notiflix';
+import { debounce } from 'lodash';
 import { fetchImages } from './fetchImages';
 
 const qs = selector => document.querySelector(selector);
