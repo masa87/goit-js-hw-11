@@ -1,8 +1,3 @@
-:root {
-  --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  --animation-duration: 250ms;
-}
-
 .search-form {
   display: flex;
   justify-content: center;
@@ -39,22 +34,19 @@
   height: 250px;
   margin: 5px;
   border: 1px solid #ccc;
-}
 
-.img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  transition: transform var(--animation-duration) var(--timing-function);
-
-  &:hover {
-    transform: scale(1.03);
+  &__img {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+    height: 180px;
   }
 }
 
 .info {
   display: flex;
   justify-content: space-around;
+  margin-bottom: 5px;
 
   &-item {
     align-items: center;

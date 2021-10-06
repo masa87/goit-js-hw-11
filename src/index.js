@@ -23,28 +23,29 @@ function renderImages(photos) {
   const markup = photos.hits.forEach(
     ({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
       gallery.innerHTML += `<div class="photo-card">
-      <img src="${webformatURL}" alt="${tags}" loading="lazy" />
-      <div class="info">
-        <p class="info-item">
-          <b class="info-item__description">Likes
-          <span class="info-item__count">${likes}</span>
-          </b>
-        </p>
-        <p class="info-item">
-          <b class="info-item__description">Views
-          <span class="info-item__count">${views}</span>
-          </b>
-        </p>
-        <p class="info-item">
-          <b class="info-item__description">Comments
-          <span class="info-item__count">${comments}</span>
-          </b>
-        </p>
-        <p class="info-item">
-          <b class="info-item__description">Downloads
-          <span class="info-item__count">${downloads}</span>
-          </b>
-        </p>
+        <img class="photo-card__img" src="${webformatURL}" alt="${tags}" loading="lazy" />
+        <div class="info">
+          <p class="info-item">
+            <b class="info-item__description">Likes
+            <span class="info-item__count">${likes}</span>
+            </b>
+          </p>
+          <p class="info-item">
+            <b class="info-item__description">Views
+            <span class="info-item__count">${views}</span>
+            </b>
+          </p>
+          <p class="info-item">
+            <b class="info-item__description">Comments
+            <span class="info-item__count">${comments}</span>
+            </b>
+          </p>
+          <p class="info-item">
+            <b class="info-item__description">Downloads
+            <span class="info-item__count">${downloads}</span>
+            </b>
+          </p>
+        </div>
       </div>`;
     },
   );
