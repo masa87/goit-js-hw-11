@@ -1,18 +1,20 @@
 .search-form {
   display: flex;
-  // position: fixed;
+  position: sticky;
+  top: 0;
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  padding: 6px;
   background-color: rgb(0, 102, 255);
   text-align: center;
+  z-index: 1;
 
   &__input {
     width: 350px;
     padding: 10px;
     font-size: 15px;
     border: 1px solid rgba(56, 11, 204, 0.9);
-    border-radius: 3px;
+    border-radius: 5px;
     cursor: pointer;
 
     &:hover,

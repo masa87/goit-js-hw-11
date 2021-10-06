@@ -2,6 +2,8 @@ import './sass/main.scss';
 import Notiflix from 'notiflix';
 import { debounce } from 'lodash';
 import { fetchImages } from './fetchImages';
+import _default from '../node_modules/simplelightbox/dist/simple-lightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const qs = selector => document.querySelector(selector);
 const input = qs('.search-form__input');
@@ -11,8 +13,7 @@ const btnLoadMore = qs('.load-more');
 
 let pageNumber = 1;
 
-const searchImagesValue = e => {
-  e.preventDefault();
+const searchImagesValue = () => {
   fetchImages(input.value, pageNumber)
     .then(photos => {
       if (pageNumber < 1) {
@@ -30,8 +31,11 @@ const searchImagesValue = e => {
 function renderImages(photos) {
   photos.hits.forEach(
     ({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
+      console.log(largeImageURL);
       gallery.innerHTML += `<div class="photo-card">
-        <img class="photo-card__img" src="${webformatURL}" alt="${tags}" loading="lazy" />
+        <a class="photo-card__item" href="${largeImageURL}">
+          <img class="photo-card__img" src="${webformatURL}" alt="${tags}" loading="lazy" />
+        </a>
         <div class="info">
           <p class="info-item">
             <b class="info-item__description">Likes
@@ -57,12 +61,19 @@ function renderImages(photos) {
       </div>`;
     },
   );
+  let lightbox = new SimpleLightbox('.gallery a', {
+    captionPosition: 'outside',
+    captionsData: 'alt',
+    captionDelay: '250',
+  });
 }
 
-function newSearch() {
-  // gallery.innerHTML = '';
+const newSearch = e => {
+  e.preventDefault();
+  pageNumber = 1;
+  gallery.innerHTML = '';
   searchImagesValue();
-}
+};
 
-btnSearch.addEventListener('click', searchImagesValue);
+btnSearch.addEventListener('click', newSearch);
 btnLoadMore.addEventListener('click', searchImagesValue);
