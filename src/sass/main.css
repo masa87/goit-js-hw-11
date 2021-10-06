@@ -147,7 +147,7 @@ body {
 }
 
 .load-more {
-  display: none;
+  display: block;
   margin: 10px auto;
   padding: 10px;
   background-color: #0066ff;
@@ -164,4 +164,8 @@ body {
 .load-more:hover {
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
+}
+
+.is-hidden {
+  display: none;
 }

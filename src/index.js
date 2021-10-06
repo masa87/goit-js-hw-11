@@ -12,26 +12,51 @@ const gallery = qs('.gallery');
 const btnLoadMore = qs('.load-more');
 
 let pageNumber = 1;
+let totalHits = 0;
+let leftHits;
 
 const searchImagesValue = () => {
   fetchImages(input.value, pageNumber)
     .then(photos => {
+      // console.log(`tyle zostało ${leftHits}`);
+
       if (pageNumber < 1) {
         gallery.innerHTML = '';
       }
       if (pageNumber >= 1) {
-        btnLoadMore.style.display = 'block';
+        btnLoadMore.classList.remove('is-hidden');
+
+        if (leftHits < 0) {
+          btnLoadMore.classList.add('is-hidden');
+          Notiflix.Notify.failure(`We're sorry, but you've reached the end of search results.`);
+        }
       }
       renderImages(photos);
       pageNumber += 1;
+      leftHits = totalHits - pageNumber * 40;
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.log(err);
+    });
 };
 
 function renderImages(photos) {
+  totalHits = photos.totalHits;
+
+  if (pageNumber <= 1) {
+    leftHits = totalHits;
+    if (totalHits <= 0) {
+      Notiflix.Notify.failure(
+        `Sorry, there are no images matching your search query. Please try again.`,
+      );
+      btnLoadMore.classList.toggle('is-hidden');
+    } else {
+      Notiflix.Notify.success(`Found ${photos.totalHits} images`);
+    }
+  }
+
   photos.hits.forEach(
     ({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
-      console.log(largeImageURL);
       gallery.innerHTML += `<div class="photo-card">
         <a class="photo-card__item" href="${largeImageURL}">
           <img class="photo-card__img" src="${webformatURL}" alt="${tags}" loading="lazy" />
