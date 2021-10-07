@@ -18,12 +18,9 @@ let leftHits;
 const searchImagesValue = () => {
   fetchImages(input.value, pageNumber)
     .then(photos => {
-      console.log(`tyle zostało ${leftHits}`);
-
       if (pageNumber < 1) {
         gallery.innerHTML = '';
-      }
-      if (pageNumber >= 1) {
+      } else if (pageNumber >= 1) {
         btnLoadMore.classList.remove('is-hidden');
 
         if (leftHits < 0) {
@@ -86,6 +83,18 @@ function renderImages(photos) {
       </div>`;
     },
   );
+
+  if (pageNumber > 1) {
+    const { height: cardHeight } = document
+      .querySelector('.gallery .photo-card')
+      .getBoundingClientRect();
+
+    window.scrollBy({
+      top: cardHeight * 2,
+      behavior: 'smooth',
+    });
+  }
+
   let lightbox = new SimpleLightbox('.gallery a', {
     captionPosition: 'outside',
     captionsData: 'alt',
@@ -100,5 +109,10 @@ const newSearch = e => {
   searchImagesValue();
 };
 
+const loadMore = e => {
+  e.preventDefault();
+  searchImagesValue();
+};
+
 btnSearch.addEventListener('click', newSearch);
-btnLoadMore.addEventListener('click', searchImagesValue);
+btnLoadMore.addEventListener('click', loadMore);
