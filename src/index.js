@@ -1,5 +1,6 @@
 import './sass/main.scss';
 import Notiflix from 'notiflix';
+import axios from 'axios';
 import { debounce } from 'lodash';
 import { fetchImages } from './fetchImages';
 import _default from '../node_modules/simplelightbox/dist/simple-lightbox';
